@@ -2,14 +2,19 @@ import { useState } from "react";
 import css from "./App.module.css";
 import CafeInfo from "./../CafeInfo/CafeInfo";
 
-import initialVotes, { type VoteType, type Votes } from "../../types/votes";
+import type Votes from "./../../types/votes";
+import { type VoteType } from "./../../types/votes";
 import VoteOptions from "./../VoteOptions/VoteOptions";
 import VoteStats from "./../VoteStats/VoteStats";
 import Notification from "./../Notification/Notification";
 
 export default function App() {
-  // Стан votes
-  const [votes, setVotes] = useState<Votes>(initialVotes);
+  // Початковий стан votes оголошуємо без зовнішніх констант
+  const [votes, setVotes] = useState<Votes>({
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  });
 
   // Ф-я handleVote для оновлення к-ті голосів
   const handleVote = (type: VoteType): void => {
@@ -21,7 +26,11 @@ export default function App() {
 
   // Ф-я resetVotes для скидання стану
   const resetVotes = (): void => {
-    setVotes(initialVotes);
+    setVotes({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
   };
 
   // Обчислюємо загальну кількість голосів для передачі у пропси
